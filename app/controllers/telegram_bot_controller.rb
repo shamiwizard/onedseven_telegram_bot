@@ -1,0 +1,2 @@
+class TelegramBotController < ApplicationController
+end
