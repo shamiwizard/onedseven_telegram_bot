@@ -11,7 +11,7 @@ module Onedseven
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.0
 
-    config.telegram_updates_controller.session_store = :redis_store, {expires_in: 1.month}
+    config.telegram_updates_controller.session_store = :redis_store, { expires_in: 1.month }
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
