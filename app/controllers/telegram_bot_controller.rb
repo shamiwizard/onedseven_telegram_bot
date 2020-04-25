@@ -11,23 +11,22 @@ class TelegramBotController < Telegram::Bot::UpdatesController
     end
   end
 
-
-
   private
 
   def save_person
     person = Person.new(person_params)
 
     # TODO: Remove it or come up with normal message
-    if person
+    if person.save
       'Success: Person saved'
     else
       'Error: Person is not saved!!'
     end
   end
 
+  # TODO: Rename this method, don't correct name
   def person_exist
-    unless Person.find_by(telegram_code: person_params[:telegram_code])
+    unless person_exist?
       save_person
     end
   end
