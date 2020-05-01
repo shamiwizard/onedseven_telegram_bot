@@ -5,7 +5,7 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     username { Faker::Internet.username  }
     language_code { 'en' }
-    person_type { 'dm' }
+    person_type { 'dmaster' }
   end
 
   factory :person_params, class: Person do
@@ -14,6 +14,6 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     username { Faker::Internet.username  }
     language_code { 'en' }
-    person_type { 'dm' }
+    person_type { '' }
   end
 end

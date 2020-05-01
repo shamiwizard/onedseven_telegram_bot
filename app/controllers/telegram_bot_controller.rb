@@ -1,14 +1,32 @@
 class TelegramBotController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
 
-  before_action :person_exist, only: [:start!]
+  before_action :person_exist, only: [:start!, :master!, :organizer!]
 
   def start!(data = nil, *)
-    if person_exist?
-      respond_with :message, text: "Hello #{person_params[:first_name]} #{person_params[:last_name]} insert you type /organizator or /master"
+    if person
+      respond_with :message, text: "Hello #{person_params[:first_name]} #{person_params[:last_name]} insert you type /organizer or /master"
     else
       respond_with :message, text: "Hello #{person_params[:first_name]} #{person_params[:last_name]}"
     end
+  end
+
+  def dmaster!(data=nil, *)
+    type = action_options[:command]
+
+    update_person_type(type)
+  end
+
+  #TODO: Make one method or come with better idea
+  def organizer!(data=nil, *)
+    type = action_options[:command]
+
+    update_person_type(type)
+  end
+
+
+  def message(message)
+    respond_with :message, text: "YEs"
   end
 
   private
@@ -16,7 +34,7 @@ class TelegramBotController < Telegram::Bot::UpdatesController
   def save_person
     person = Person.new(person_params)
 
-    # TODO: Remove it or come up with normal message
+    # TODO: Remove it or come up better idea
     if person.save
       'Success: Person saved'
     else
@@ -24,14 +42,27 @@ class TelegramBotController < Telegram::Bot::UpdatesController
     end
   end
 
-  # TODO: Rename this method, don't correct name
+  def update_person_type(type)
+    type[0] = '' if type[0] === '/'
+
+    if person.person_type
+      return respond_with :message, parse_mode: 'html', text: "Sorry but you already has role - <b>#{person.person_type}</b>"
+    end
+
+    if person.update_attributes(person_type: type.to_sym)
+      respond_with :message, text: "Congratelate now your role is #{type}"
+    else
+      respond_with :message, text: "Sorry something goes wrong, try again later"
+    end
+  end
+
   def person_exist
-    unless person_exist?
+    unless person
       save_person
     end
   end
 
-  def person_exist?
+  def person
     Person.find_by(telegram_code: person_params[:telegram_code])
   end
 
