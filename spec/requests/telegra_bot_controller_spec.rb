@@ -42,30 +42,36 @@ RSpec.describe TelegramBotController, telegram_bot: :rails do
 
     context 'when person already has role' do
       context 'when person role is master' do
-        it 'return message' do
-          expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Sorry but you already have role - <b>#{person.person_type}</b>"))
-        end
-      end
-
-      context 'when person role is orginiaer' do
-        before { person.update_attributes(person_type: :organizer) }
+        before { DMaster.create(person_id: person.id) }
 
         it 'return message' do
           expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Sorry but you already have role - <b>#{person.person_type}</b>"))
+            .with(hash_including(text: "You can't update your role because your role is already Dungeon master"))
+        end
+
+        it "not create new record" do
+          expect { subject }.to_not change { DMaster.count }
         end
       end
+
+      # context 'when person role is orginiaer' do
+      #   before { person.update_attributes(person_type: :organizer) }
+
+      #   it 'return message' do
+      #     expect { subject }.to make_telegram_request(bot, :sendMessage)
+      #       .with(hash_including(text: "You can't update your role because your role is already Organizer"))
+      #   end
+      # end
     end
 
     context 'when peson hasn\'t role' do
-      before do
-        person.update_attributes(person_type: '')
-      end
-
       it 'retrun message' do
         expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Congratelate now your role is dmaster"))
+            .with(hash_including(text: "Congratelate now your role is Dungeon master"))
+      end
+
+      it "create new record" do
+        expect { subject }.to change { DMaster.count }
       end
     end
   end
@@ -73,35 +79,40 @@ RSpec.describe TelegramBotController, telegram_bot: :rails do
   describe '#organizer!' do
     before do
       from[:id] = person.telegram_code
-      person.update_attributes(person_type: :organizer)
     end
 
     subject { dispatch_command(:organizer) }
 
     context 'when person already has role' do
       context 'when person role is organizer' do
-        it 'return message' do
-          expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Sorry but you already have role - <b>#{person.person_type}</b>"))
-        end
-      end
-
-      context 'when person role is master' do
-        before { person.update_attributes(person_type: :dmaster) }
+        before { Organizer.create(person_id: person.id) }
 
         it 'return message' do
           expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Sorry but you already have role - <b>#{person.person_type}</b>"))
+            .with(hash_including(text: "You can't update your role because your role is already Organizer"))
+        end
+
+        it 'not create new record' do
+          expect { subject }.to_not change{ Organizer.count }
         end
       end
+
+      # context 'when person role is master' do
+      #   it 'return message' do
+      #     expect { subject }.to make_telegram_request(bot, :sendMessage)
+      #       .with(hash_including(text: "Sorry but you already have role - <b>#{person.person_type}</b>"))
+      #   end
+      # end
     end
 
     context 'when peson hasn\'t role' do
-      before { person.update_attributes(person_type: '') }
-
       it 'retrun message' do
         expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Congratelate now your role is organizer"))
+            .with(hash_including(text: "Congratelate now your role is Organizer"))
+      end
+
+      it 'create new record' do
+        expect { subject }.to change { Organizer.count }
       end
     end
   end

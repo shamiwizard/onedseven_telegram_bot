@@ -12,16 +12,31 @@ class TelegramBotController < Telegram::Bot::UpdatesController
   end
 
   def dmaster!(data=nil, *)
-    type = action_options[:command]
+    if person.d_master
+      return respond_with :message, text: "You can't update your role because your role is already Dungeon master"
+    end
 
-    update_person_type(type)
+    d_master = DMaster.new(person_id: person.id)
+
+    if d_master.save
+      respond_with :message, text: "Congratelate now your role is Dungeon master"
+    else
+      respond_with :message, text: "Sorry something goes wrong, try again later"
+    end
   end
 
-  #TODO: Make one method or come with better idea
   def organizer!(data=nil, *)
-    type = action_options[:command]
+    if person.organizer
+      return respond_with :message, text: "You can't update your role because your role is already Organizer"
+    end
 
-    update_person_type(type)
+    d_master = Organizer.new(person_id: person.id)
+
+    if d_master.save
+      respond_with :message, text: "Congratelate now your role is Organizer"
+    else
+      respond_with :message, text: "Sorry something goes wrong, try again later"
+    end
   end
 
   def start_poll!(data=nil, *)
@@ -29,7 +44,8 @@ class TelegramBotController < Telegram::Bot::UpdatesController
       return respond_with :message, text: "Sorry but you don't have permission to run poll"
     end
 
-    Person.where(person_type: 'dmaster').each do |p|
+    # TODO: method which start poll thought the statistic
+    DMaster.all.each do |p|
       bot.send_message(chat_id: p.telegram_code, text: "Poll started could you vote)\n Write /yes or /no if you can")
     end
   end
@@ -52,20 +68,6 @@ class TelegramBotController < Telegram::Bot::UpdatesController
       'Success: Person saved'
     else
       'Error: Person is not saved!!'
-    end
-  end
-
-  def update_person_type(type)
-    type[0] = '' if type[0] === '/'
-
-    if person.person_type
-      return respond_with :message, parse_mode: 'html', text: "Sorry but you already have role - <b>#{person.person_type}</b>"
-    end
-
-    if person.update_attributes(person_type: type.to_sym)
-      respond_with :message, text: "Congratelate now your role is #{type}"
-    else
-      respond_with :message, text: "Sorry something goes wrong, try again later"
     end
   end
 
