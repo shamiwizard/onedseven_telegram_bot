@@ -44,7 +44,7 @@ RSpec.describe TelegramBotController, telegram_bot: :rails do
       context 'when person role is master' do
         it 'return message' do
           expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Sorry but you already has role - <b>#{person.person_type}</b>"))
+            .with(hash_including(text: "Sorry but you already have role - <b>#{person.person_type}</b>"))
         end
       end
 
@@ -53,7 +53,7 @@ RSpec.describe TelegramBotController, telegram_bot: :rails do
 
         it 'return message' do
           expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Sorry but you already has role - <b>#{person.person_type}</b>"))
+            .with(hash_including(text: "Sorry but you already have role - <b>#{person.person_type}</b>"))
         end
       end
     end
@@ -82,7 +82,7 @@ RSpec.describe TelegramBotController, telegram_bot: :rails do
       context 'when person role is organizer' do
         it 'return message' do
           expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Sorry but you already has role - <b>#{person.person_type}</b>"))
+            .with(hash_including(text: "Sorry but you already have role - <b>#{person.person_type}</b>"))
         end
       end
 
@@ -91,7 +91,7 @@ RSpec.describe TelegramBotController, telegram_bot: :rails do
 
         it 'return message' do
           expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Sorry but you already has role - <b>#{person.person_type}</b>"))
+            .with(hash_including(text: "Sorry but you already have role - <b>#{person.person_type}</b>"))
         end
       end
     end

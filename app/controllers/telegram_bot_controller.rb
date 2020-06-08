@@ -24,9 +24,22 @@ class TelegramBotController < Telegram::Bot::UpdatesController
     update_person_type(type)
   end
 
+  def start_poll!(data=nil, *)
+    unless person.organizer?
+      return respond_with :message, text: "Sorry but you don't have permission to run poll"
+    end
 
-  def message(message)
-    respond_with :message, text: "YEs"
+    Person.where(person_type: 'dmaster').each do |p|
+      bot.send_message(chat_id: p.telegram_code, text: "Poll started could you vote)\n Write /yes or /no if you can")
+    end
+  end
+
+  def yes!
+    respond_with :message, text: 'Your asnwer is yes'
+  end
+
+  def no!(data = nil, *)
+    respond_with :message, text: 'Your asnwer is no'
   end
 
   private
@@ -46,7 +59,7 @@ class TelegramBotController < Telegram::Bot::UpdatesController
     type[0] = '' if type[0] === '/'
 
     if person.person_type
-      return respond_with :message, parse_mode: 'html', text: "Sorry but you already has role - <b>#{person.person_type}</b>"
+      return respond_with :message, parse_mode: 'html', text: "Sorry but you already have role - <b>#{person.person_type}</b>"
     end
 
     if person.update_attributes(person_type: type.to_sym)
