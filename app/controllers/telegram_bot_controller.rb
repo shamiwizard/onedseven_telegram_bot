@@ -30,9 +30,9 @@ class TelegramBotController < Telegram::Bot::UpdatesController
       return respond_with :message, text: "You can't update your role because your role is already Organizer"
     end
 
-    d_master = Organizer.new(person_id: person.id)
+    organizer = Organizer.new(person_id: person.id)
 
-    if d_master.save
+    if organizer.save
       respond_with :message, text: "Congratelate now your role is Organizer"
     else
       respond_with :message, text: "Sorry something goes wrong, try again later"
@@ -44,9 +44,10 @@ class TelegramBotController < Telegram::Bot::UpdatesController
       return respond_with :message, text: "Sorry but you don't have permission to run poll"
     end
 
-    # TODO: method which start poll thought the statistic
-    DMaster.all.each do |p|
-      bot.send_message(chat_id: p.telegram_code, text: "Poll started could you vote)\n Write /yes or /no if you can")
+    if Poll.create(organizer_id: person.id, started_at: Time.now)
+      send_message_to_dmasters
+    else
+      respond_with :message, text: "Sorry something goes wrong, try again later"
     end
   end
 
@@ -84,5 +85,11 @@ class TelegramBotController < Telegram::Bot::UpdatesController
   def person_params
     { telegram_code: from['id'], first_name: from['first_name'], last_name: from['last_name'],
       username: from['username'], language_code: from['language_code'] }
+  end
+
+  def send_message_to_dmasters
+    DMaster.all.each do |p|
+      bot.send_message(chat_id: p.telegram_code, text: "Poll started could you vote)\n Write /yes or /no if you can")
+    end
   end
 end

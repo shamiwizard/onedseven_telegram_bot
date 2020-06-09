@@ -1,0 +1,661 @@
+CREATE DATABASE shamiwizard;
+CREATE DATABASE test;
+\l
+\q
+ALTER USER shamiwizard with password '1621';
+\q
+\l
+\c test
+\c shamiwizard
+\c test
+CREATE TABLE person(
+id int,
+first_name VARCHAR(50),
+last_name VARCHAR(52),
+gender VARCHAR(7),
+date_of_birth DATE );
+\d
+\d person
+DROP TABLE person;
+\d
+\d person
+CREATE TABLE person (
+id BIGSERIAL NOT NULL PRIMARY KEY,
+first_name VARCHAR(50) NOT NULL,
+last_name VARCHAR(57) NOT NULL,
+gender VARCHAR(7) NOT NULL,
+date_of_birth DATE, NOT NULL,
+email VARCHAR(150) );
+CREATE TABLE person (
+id BIGSERIAL NOT NULL PRIMARY KEY,
+first_name VARCHAR(50) NOT NULL,
+last_name VARCHAR(57) NOT NULL,
+gender VARCHAR(7) NOT NULL,
+date_of_birth DATE NOT NULL,
+email VARCHAR(150) );
+\d
+\d person
+INSERT INTO person ( 
+first_name,
+last_name,
+gender,
+date_of_birth)
+VALUES(`Jake`, `Jones`, `MALE`, DATE `1990-01-01`);
+INSERT INTO person ( 
+first_name,
+last_name,
+gender,
+date_of_birth)
+VALUES('Jake', 'Jones', 'MALE', DATE '1990-01-01');
+\dt
+\dt person
+INSERT INTO (first_name, last_name, gender, date_of_birth)
+VALUES ('Anne', 'Smith', 'FEMALE', DATE '1988-01-09');
+INSERT INTO person (first_name, last_name, gender, date_of_birth)
+VALUES ('Anne', 'Smith', 'FEMALE', DATE '1988-01-09');
+SELECT * FROM person
+:
+;
+SELECT * FROM person;
+\i /home/shamiwizard/Downloads/person.sql
+d\
+DROP TABLE person;
+DROP TABLE person;
+;
+DROP TABLE person;
+\i /home/shamiwizard/Downloads/person.sql
+SELECT * FROM person;
+\d test
+\l
+\d test
+\d test
+\c test
+\d
+\d person
+DROP TABLE person;
+\h
+\help
+\i
+\q
+\?
+\c test
+\i /home/shamiwizard/Downloads/person.sql
+\d persn
+\d person
+\d
+SELECT * FROM person;
+SELECT fistn_name, last_name FROM person;
+SELECT first_name, last_name FROM person;
+SELECT email FROM person;
+SELECT * FROM person ORDER BY country_of_birth;
+SELECT * FROM person ORDER BY country_of_birth DESC;
+SELECT * FROM person ORDER BY country_of_birth ASC;
+SELECT * FROM person ORDER BY id DESC;
+SELECT * FROM person ORDER BY first_name DESC;
+SELECT * FROM person ORDER BY id, last_name;
+SELECT * FROM person ORDER BY id, last_name;
+SELCT country_of_birth FROM person ORDER BY;
+SELeCT country_of_birth FROM person ORDER BY;
+SELECT country_of_birth FROM person ORDER BY country_of_birth;
+SELeCT DISTINCT  country_of_birth FROM person ORDER BY;
+SELECT DISTINCT country_of_birth FROM person ORDER BY country_of_birth;
+SELECT DISTINCT country_of_birth FROM person ORDER BY country_of_birth;
+SELECT * FROM person WHERE gender='Female';
+SELECT * FROM person WHERE gender='Male';
+SELECT * FROM person WHERE gender='Mal';
+SELECT * FROM person WHERE gender='Male' AND country_of_birth='Poland';
+SELECT * FROM person WHERE gender='Female' AND country_of_birth='Poland';
+\c test
+SELECT * FROM person WHERE gender='Female' AND country_of_birth='Poland' OR country_of_birth='China';
+SELECT * FROM person WHERE gender='Female' AND (country_of_birth='Poland' OR country_of_birth='China') AND last_name='Punter';
+SELECT * FROM person WHERE gender='Female' AND (country_of_birth='Poland' OR country_of_birth='China') AND last_name='Punter';
+SELECT 1=1;
+SELECT 1=2;
+SELECT 1 = 2;
+SELECT 1 <= 2;
+SELECT 1 <= 1;
+SELECT 1 < 1;
+SELECT 1 >= 1;
+SELECT 1 > 1;
+SELECT 1 >= 1;
+SELECT 1 >= 2;
+SELECT 1 <> 2;
+SELECT 1 <> 1;
+SELECT * FROM person LIMIT 10;
+SELECT * FROM person LIMIT 7;
+SELECT * FROM person ORDER BY id LIMIT 7;
+SELECT * FROM person ORDER BY id DESC LIMIT 7;
+SELECT * FROM person OFFSET 5 LIMIT 7;
+SELECT * FROM person OFFSET 3 LIMIT 7;
+SELECT * FROM person OFFSET 3;
+SELECT * FROM person OFFSET 100;
+SELECT * FROM person OFFSET 5 FETCH FIRST 6 ROW ONLY;
+SELECT * FROM person OFFSET 5 FETCH FIRST ROW ONLY;
+SELECT * 
+FROM person
+WHERE country_of_birth IN ('China', 'Brazil', 'France');
+SELECT * 
+FROM person
+WHERE country_of_birth IN ('China', 'Brazil');
+SELECT * 
+FROM person
+WHERE country_of_birth IN ('China', 'Brazil') ORDER BY country_of_birth;
+SELECT * FROM person
+WHERE date_of_birth BETWEEN DATE '2000-01-01' AND '2015-01-01';
+SELECT * FROM person;
+SELECT * FROM person
+WHERE date_of_birth BETWEEN DATE '2019-01-01' AND '2015-12-01';
+SELECT * FROM person
+WHERE date_of_birth BETWEEN DATE '2019-01-01' AND '2019-12-01';
+SELECT * FROM person
+WHERE date_of_birth BETWEEN DATE '2019-01-01' AND '2019-02-01';
+SELECT * FROM person
+WHERE date_of_birth BETWEEN DATE '2019-01-01' AND '2019-03-01';
+SELECT * FROM person
+WHERE date_of_birth BETWEEN DATE '2019-01-01' AND '2019-04-01';
+SELECT * FROM person
+WHERE date_of_birth BETWEEN DATE '2019-01-01' AND '2019-05-01';
+SELECT * FROM person WHERE email Like %@bloomberg.com
+;
+SELECT * FROM person WHERE email LIKE %@bloomberg.com;
+;
+SELECT * FROM person WHERE email LIKE %@bloomberg.com;
+;
+SELECT * FROM person WHERE email Like '%@bloomberg.com';
+SELECT * FROM person WHERE email Like '%@.com';
+SELECT * FROM person WHERE email Like '%.com';
+SELECT * FROM person WHERE email Like '%google.com';
+SELECT * FROM person WHERE email Like '%google.%';
+SELECT * FROM person WHERE email Like '_____%@';
+SELECT * FROM person WHERE email Like '________%@';
+SELECT * FROM person WHERE email Like '___________@%';
+SELECT * FROM person WHERE email Like '___@%';
+SELECT * FROM person WHERE email Like '_____@%';
+SELECT * FROM person WHERE email Like '______@%';
+SELECT * FROM person WHERE country_of_birth LIKE 'p%'; 
+SELECT * FROM person WHERE country_of_birth LIKE ')%'; 
+SELECT * FROM person WHERE country_of_birth LIKE 'P%'; 
+SELECT * FROM person WHERE country_of_birth ILIKE 'p%'; 
+SELECT country_of_birth FROM person GROUP BY country_of_birth;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth ORDER BY count; 
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth ORDER BY count DEAS; 
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth ORDER BY count DESA; 
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth ORDER BY count DESC; 
+SELECT country_of_birth FROM person
+WHERE 
+;
+SELECT country_of_birth, count FROM person
+WHERE country_of_birth;
+SELECT country_of_birth, COUNT FROM person
+WHERE country_of_birth;
+SELECT country_of_birth, COUNT(*) FROM person
+WHERE country_of_birth;
+SELECT country_of_birth, COUNT(*) FROM person
+WHERE country_of_birth ORDER BY country_of_birth DESC;
+SELECT country_of_birth, COUNT(*) FROM person WHERE country_of_birth ORDER BY country_of_birth DESC;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth HAVING COUNT(*) > 5;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth HAVING COUNT(*) > 20 ORDER BY country_of_birth DESC;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth HAVING COUNT(*) > 20 ORDER BY count DESC;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth HAVING COUNT(*) > 100 ORDER BY count DESC;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth HAVING COUNT(*) <= 100 ORDER BY count DESC;
+\c
+\c test
+SELECT SUM(price) FROM person;
+SELECT SUM(id) FROM person;
+SELECT country_of_birth FROM person GROUP BY country_of_birth;
+SELECT country_of_birth FROM person;
+SELECT country_of_birth FROM person GROUP BY country_of_birth;
+SELECT DISITICT country_of_birth FROM person;
+SELECT DISTINCT country_of_birth FROM person;
+SELECT DISTINCT country_of_birth, COUNT(*) FROM person;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth ORDER BY count DESC;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth HAVING count > 5 ORDER BY count DESC;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth HAVING COUNT(*) > 5 ORDER BY count DESC;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth HAVING country_of_birth = "China" ORDER BY count DESC;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth HAVING country_of_birth == "China" ORDER BY count DESC;
+SELECT country_of_birth, COUNT(*) FROM person GROUP BY country_of_birth HAVING country_of_birth LIKE "China" ORDER BY count DESC;
+CREATE TABLE car (
+id BIGSERIAL NOT NULL PRIMARY KEY,
+make varchar(50) NOT NULL,
+model varchar(50) NOT NULL,
+price NUMERIC(19,2) NOT NULL );
+\d
+\i x-special/nautilus-clipboard
+\c test
+\i /home/shamiwizard/Download/car.sql
+\i /home/shamiwizard/Downloads/car.sql
+\i /home/shamiwizard/Downloads/car (1).sql
+\i /home/shamiwizard/Downloads/car(1).sql
+\i /home/shamiwizard/Downloads/car (1).sql
+\i /home/shamiwizard/Downloads/car.sql
+SELECT * FROM car;
+SELECT MAX(price) FROM car;
+SELECT MAX(price) FROM car GROUP BY model;
+SELECT model, MAX(price) FROM car GROUP BY model;
+SELECT model, MAX(price) FROM car GROUP BY make;
+SELECT make, MAX(price) FROM car GROUP BY make;
+SELECT make, COUNT(price) FROM car GROUP BY make;
+SELECT make, COUNT(*) FROM car GROUP BY make;
+SELECT SUM(price) FROM car;
+SELECT make, SUM(price) FROM car GROUP BY make
+;
+ SELECT 12+1;
+ SELECT 12+1 +8;
+ SELECT 12+1 - 8;
+ SELECT 12^2;
+ SELECT 1^2;
+ SELECT 2^2;
+ SELECT 5!;
+ SELECT 2!;
+ SELECT 2!;
+ SELECT 3!;
+ SELECT 10 % 3;
+ SELECT 10 % 4;
+ SELECT 10 % 6;
+ SELECT 10 % 7;
+ SELECT 10 % 8;
+ SELECT 10 % 1;
+ SELECT 10 % 2;
+ SELECT 10 % 3;
+ SELECT 10 % 4;
+ SELECT 10 % 5;
+ SELECT 10 % 6;
+SELECT * FROM car;
+SELECT id, make, model, price FROM car;
+SELECT id, make, model, price, price * 0.1 FROM car;
+SELECT id, make, model, price, price * .10 FROM car;
+SELECT id, make, model, price, ROUND(price * .10, 2) FROM car;
+SELECT id, make, model, price, ROUND(price * .10, 2), ROUND(price - (price * .10)) FROM car;
+SELECT id, make, model, price, ROUND(price * .10, 2), ROUND(price - (price * .10), 2) FROM car;
+SELECT id, make, model, price, ROUND(price * .10, 2), ROUND(price - price * .10, 2) FROM car;
+SELECT id, make, model, price, ROUND(price * .10, 2), ROUND(price - (price * .10), 2) FROM car;
+SELECT id, make, model, price AS original_price, ROUND(price * .10, 2) AS ten_percent, ROUND(price - (price * .10), 2) AS discount_after_10 FROM car;
+SELECT COALESCE(1);
+SELECT COALESCE(1) AS number;
+SELECT COALESCE(null, 1) AS number;
+SELECT COALESCE(null, 10,1) AS number;
+SELECT * FROM person;
+SELECT email FROM person;
+SELECT COALESCE(email, 'Email is not provided') FROM person;
+SECET 10/0;
+SELECT 10/0;
+SELECT NULLIF(10, 10)
+;
+SELECT NULLIF(10, 10);
+SELECT NULLIF(10, 11);
+SELECT NULLIF(10, 12);
+SELECT 10 / NULL
+;
+SELECT 10 / NULLIF(0, 0)
+;
+SELECT 10 / NULLIF(0, 2);
+SELECT 10 / NULLIF(0, 2);
+SELECT COALAPCE( 10 / NULLIF(0, 0), 10);
+SELECT COALESCE( 10 / NULLIF(0, 0), 10);
+ SELECT NOW;
+ SELECT NOW();
+ SELECT NOW()::DATE;
+ SELECT NOW()::TIME;
+ SELECT NOW()::HOUR;
+ SELECT NOW()::HOURS;
+SELECT NOW();
+SELECT NOW() - INTERVAL '1 YEAR';
+SELECT NOW() - INTERVAL '10 YEAR';
+SELECT NOW() - INTERVAL '10 YEARS';
+SELECT NOW() - INTERVAL '10 MONTH';
+SELECT NOW() - INTERVAL '10 MONTH';
+SELECT NOW() - INTERVAL '10 MONTHs';
+SELECT NOW() + INTERVAL '10 MONTHS';
+SELECT NOW() + INTERVAL '10 DAYS';
+SELECT NOW()::DATE + INTERVAL '10 DAYS';
+SELECT (NOW() + INTERVAL '10 DAYS')::DATE;
+SELECT NOW();
+SELECT EXTRECT(YEAR FROM NOW());
+SELECT EXTRACT(YEAR FROM NOW());
+SELECT EXTRACT(YEARs FROM NOW());
+SELECT EXTRACT(DAYS FROM NOW());
+SELECT EXTRACT(DAY FROM NOW());
+SELECT EXTRACT(CENTARY FROM NOW());
+SELECT EXTRACT(CENTURY FROM NOW());
+\d
+SELECT first_name, last_name, date_of_birth, gender, country_of_birth
+FROM person;
+SELECT first_name, last_name, date_of_birth, gender, country_of_birth, AGE(NOW(), date_of_birth) AS age, 
+FROM person;
+SELECT first_name, last_name, date_of_birth, gender, country_of_birth, AGE(NOW(), date_of_birth) AS age
+FROM person;
+SELECT first_name, last_name, date_of_birth, gender, country_of_birth, EXSTRACT(DAY, AGE(NOW(), date_of_birth)) AS age, 
+FROM person;
+SELECT first_name, last_name, date_of_birth, gender, country_of_birth, EXSTRACT(DAY, AGE(NOW(), date_of_birth)) AS age 
+FROM person;
+SELECT first_name, last_name, date_of_birth, gender, country_of_birth, EXSTRACT(DAY AGE(NOW(), date_of_birth)) AS age 
+FROM person;
+SELECT first_name, last_name, date_of_birth, gender, country_of_birth, EXSTRACT(DAY FROM AGE(NOW(), date_of_birth)) AS age 
+FROM person;
+SELECT first_name, last_name, date_of_birth, gender, country_of_birth, EXTRACT(DAY FROM AGE(NOW(), date_of_birth)) AS age 
+FROM person;
+\d person
+SELECT * FROM person LIMIT 1;
+ALTER TABLE person DROP CONSTRAINT person_pkey;
+\d person
+ALTER TABLE person ADD PRIMARY KEY (id);
+\d
+\d person
+DELETE FROM person WHERE id = 1;
+ALTER TABLE person ADD CONSTARIN unique_email_address UNIQUE (email);
+ALTER TABLE person ADD CONSTRAIN unique_email_address UNIQUE (email);
+ALTER TABLE person ADD CONSTRAINT unique_email_address UNIQUE (email);
+\d person
+ALTER TABLE person DROP CONSTRAINT unique_email_address;
+\d person
+ALTER TABLE person ADD UNIQUE (email)
+;
+\d person
+SELECT * FROM person;
+ALTER TABLE person ADD CONSTRAINT gender_constraint CHECK (gender == 'Female)
+;
+'
+;
+)
+;
+ALTER TABLE person ADD CONSTRAINT gender_constraint CHECK (gender = 'Female' OR gender = 'Male')
+;
+INSERT INTO person ( first_name, last_name, date_of_birth, gender, country_of_birth ) VALUES ('Misha', 'Leibiuk', DATE '2000-10-10', 'Hello', 'UK');
+INSERT INTO person ( first_name, last_name, date_of_birth, gender, country_of_birth ) VALUES ('Misha', 'Leibiuk', DATE '2000-10-10', 'Male', 'UK');
+\d person
+DELETE FROM person WHERE id = 2;
+SELECT * FROM person ORDER BY id;
+UPDATER person SET email = 'ommar@gmail.com' WHERE id = 3;
+UPDATE person SET email = 'ommar@gmail.com' WHERE id = 3;
+UPDATE person SET first_name='Misha', email = 'omar@gmail.com' WHERE id = 4;
+SELECT * FROM person LIMIT 5;
+SELECT * FROM person LIMIT 9;
+SELECT * FROM person ORDER BY id;
+SELECT * FROM person LIMIT 9;
+SELECT * FROM person LIMIT 10;
+SELECT * FROM person LIMIT ;
+SELECT * FROM person LIMIT 1;
+SELECT * FROM person;
+SELECT * FROM person WHERE id = 100;
+INSERT INTO person (first_name, last_name, email, gender, date_of_birth, country_of_birth)
+VALUES ('Misha', 'Lox', 'Email@com.com', 'Male', DATE '1997-10-04', 'Brazil');
+INSERT INTO person (id, first_name, last_name, email, gender, date_of_birth, country_of_birth)
+VALUES (4,'Misha', 'Lox', 'Email@com.com', 'Male', DATE '1997-10-04', 'Brazil');
+INSERT INTO person (id, first_name, last_name, email, gender, date_of_birth, country_of_birth)
+VALUES (4,'Misha', 'Lox', 'Email@com.com', 'Male', DATE '1997-10-04', 'Brazil') ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;
+INSERT INTO person (id, first_name, last_name, email, gender, date_of_birth, country_of_birth)
+VALUES (4,'Misha', 'Lox', 'Email1@com.com', 'Male', DATE '1997-10-04', 'Brazil') ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;
+SELECT * FROM person WHERE id = 4
+;
+INSERT INTO person (id, first_name, last_name, email, gender, date_of_birth, country_of_birth)
+VALUES (4,'Misha', 'Lox', 'Email1@com.com', 'Male', DATE '1997-10-04', 'Brazil') ON CONFLICT (id) DO UPDATE SET email = EXCLUDED.email;
+\c test
+\i
+\t person
+\\h
+\h
+\?
+\dt
+\d person
+DROP TABLE person;
+\c
+\c test
+\dt
+\d person
+DROP TABLE person;
+DROP TABLE car;
+CREATE TABLE person (
+id BIGSERIAL NOT NULL PRIMARY KEY, 
+first_name VARCHAR(50) NOT NULL,
+last_name VARCHAR(50) NOT NULL,
+gender VARCHAR(7) NOT NULL,
+email VARCHAR(100),
+date_of_birth DATE NOT NULL,
+country_of_birth VARCHAR(50) NOT NULL,
+car_id BIGINT REFERENCES car (id)
+,
+UNIQUE(car_id)
+);
+CREATE TABLE person (
+id BIGSERIAL NOT NULL PRIMARY KEY, 
+first_name VARCHAR(50) NOT NULL,
+last_name VARCHAR(50) NOT NULL,
+gender VARCHAR(7) NOT NULL,
+email VARCHAR(100),
+date_of_birth DATE NOT NULL,
+country_of_birth VARCHAR(50) NOT NULL,
+car_id BIGINT REFERENCES car (id),
+UNIQUE(car_id)
+);
+CREAET TABLE car (
+id BIGSERIAL NOT NULL PRIMARY KEY,
+make VARCHAR(100) NOT NULL, 
+model VARCHAR(100) NOT NULL, 
+prive NUMERIC(19, 2) NOT NULL
+);
+CREATE TABLE car (
+id BIGSERIAL NOT NULL PRIMARY KEY,
+make VARCHAR(100) NOT NULL, 
+model VARCHAR(100) NOT NULL, 
+prive NUMERIC(19, 2) NOT NULL
+);
+\d car
+CREATE TABLE person (
+id BIGSERIAL NOT NULL PRIMARY KEY, 
+first_name VARCHAR(50) NOT NULL,
+last_name VARCHAR(50) NOT NULL,
+gender VARCHAR(7) NOT NULL,
+email VARCHAR(100),
+date_of_birth DATE NOT NULL,
+country_of_birth VARCHAR(50) NOT NULL,
+car_id BIGINT REFERENCES car (id),
+UNIQUE(car_id)
+);
+\dt
+insert into person (first_name, last_name, gender, email, date_of_birth, country_of_birth) values ('Fernanda', 'Beardon', 'Female', 'fernandab@is.gd', '1953-10-28', 'Comoros');
+insert into person (first_name, last_name, gender, email, date_of_birth, country_of_birth) values ('Omar', 'Colmore', 'Male', null, '1921-04-03', 'Finland');
+insert into person (first_name, last_name, gender, email, date_of_birth, country_of_birth) values ('John', 'Matuschek', 'Male', 'john@feedburner.com', '1965-02-28', 'England');
+insert into car (make, model, price) values ('Land Rover', 'Sterling', '87665.38');
+insert into car (make, model, price) values ('GMC', 'Acadia', '17662.69');
+\d car
+ALTER TABLE car RENAME COLUMN prive TO price
+;
+\d car
+insert into person (first_name, last_name, gender, email, date_of_birth, country_of_birth) values ('Fernanda', 'Beardon', 'Female', 'fernandab@is.gd', '1953-10-28', 'Comoros');
+insert into person (first_name, last_name, gender, email, date_of_birth, country_of_birth) values ('Omar', 'Colmore', 'Male', null, '1921-04-03', 'Finland');
+insert into person (first_name, last_name, gender, email, date_of_birth, country_of_birth) values ('John', 'Matuschek', 'Male', 'john@feedburner.com', '1965-02-28', 'England');
+insert into car (make, model, price) values ('Land Rover', 'Sterling', '87665.38');
+insert into car (make, model, price) values ('GMC', 'Acadia', '17662.69');
+\d car
+SELECT * FROM person;
+SELECT * FROM car;
+UPDATE person SET car_id = 1 WHERE id = 2;
+UPDATE person SET car_id = 2 WHERE id = 1;
+SELECT * FROM person;
+UPDATE person SET car_id = 2 WHERE id = 3;
+SELECT * FROM person;
+SELECT * FROM person
+JOIN car ON person.car_id = car.id;
+\x
+SELECT * FROM person
+JOIN car ON person.car_id = car.id;
+SELECT person.first_name, car.make, car.model * FROM person
+JOIN car ON person.car_id = car.id;
+SELECT person.first_name, car.make, car.model, car.price FROM person
+JOIN car ON person.car_id = car.id;
+\x
+SELECT person.first_name, car.make, car.model, car.price FROM person
+JOIN car ON person.car_id = car.id;
+SELECT person.first_name, car.make, car.model, car.price FROM person
+LEFT JOIN car ON person.car_id = car.id;
+\copy (SELECT * FROM person LEFT JOIN car ON car.id = person.car_id) TO '/Users/shamiwizard/Desktop' DELIMITER ',' CSV HEADER
+\copy (SELECT * FROM person LEFT JOIN car ON car.id = person.car_id) TO '/home/shamiwizard/Desktop' DELIMITER ',' CSV HEADER
+\d test
+\c test
+\copy (SELECT * FROM person LEFT JOIN car ON car.id = person.car_id) TO '/home/shamiwizard/Desktop/result.csv' DELIMITER ',' CSV HEADER
+SELECT * FROM person_id_seq;
+SELECT * FROM person;
+\d person
+SELECT nextval('person_id_seq'::regclass);
+SELECT nextval('person_id_seq'::regclass);
+SELECT * FROM person_id_seq;
+SELECT * FROM person;
+SELECT * FROM person_id_seq;
+ALTER SQQUENCE person_id_seq RESTART WITH 7;
+ALTER SQUENCE person_id_seq RESTART WITH 7;
+ALTER SeQUENCE person_id_seq RESTART WITH 7;
+SELECT * FROM person_id_seq;
+SELECT * FROM pg_available_extension
+;
+SELECT * FROM pg_available_extensions;
+SELECT * FROM pg_available_extensions;
+SELECT * FROM pg_available_extensions;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+SELECT * FROM pg_available_extensions;
+\?
+\df
+SELECT uui_generate_v4;
+SELECT uuid_generate_v4;
+SELECT uuid_generate_v4();
+SELECT uuid_generate_v4();
+CREATE TABEL car (
+car_uid UUID NOT NULL PRIMARY KEY,
+make VARCHAR(100) NOT NULL,
+model VARCHAR(100) NOT NULL,
+price NUMERIC(19, 2) NOT NULL CHECK (price > 0) 
+);
+CREATE TABELE car (
+car_uid UUID NOT NULL PRIMARY KEY,
+make VARCHAR(100) NOT NULL,
+model VARCHAR(100) NOT NULL,
+price NUMERIC(19, 2) NOT NULL CHECK (price > 0) 
+);
+CREATE TABLE car (
+car_uid UUID NOT NULL PRIMARY KEY,
+make VARCHAR(100) NOT NULL,
+model VARCHAR(100) NOT NULL,
+price NUMERIC(19, 2) NOT NULL CHECK (price > 0) 
+);
+DROP TABLE person;
+DROP TABLE car;
+CREATE TABLE car (
+car_uid UUID NOT NULL PRIMARY KEY,
+make VARCHAR(100) NOT NULL,
+model VARCHAR(100) NOT NULL,
+price NUMERIC(19, 2) NOT NULL CHECK (price > 0) 
+);
+\c test
+\c test
+CREATE TABLE person (
+person_uid UUID NOT NULL PRIMARY KEY,
+first_name VARCHAR(50) NOT NULL,
+last_name VARCHAR(50) NOT NULL,
+gender VARCHAR(7) NOT NULL,
+eamil VARCHAR(100),
+date_of_birth DATE NOT NULL,
+country_of_birth VARCHAR(50) NOT NULL,
+car_uid UUID REFERENCES car(car_uid),
+UNIQUE(car_id),
+UNIQUE(email)
+);
+CREATE TABLE person (
+person_uid UUID NOT NULL PRIMARY KEY,
+first_name VARCHAR(50) NOT NULL,
+last_name VARCHAR(50) NOT NULL,
+gender VARCHAR(7) NOT NULL,
+eamil VARCHAR(100),
+date_of_birth DATE NOT NULL,
+country_of_birth VARCHAR(50) NOT NULL,
+car_uid UUID REFERENCES car(car_uid),
+UNIQUE(car_uid),
+UNIQUE(email)
+);
+CREATE TABLE person (
+person_uid UUID NOT NULL PRIMARY KEY,
+first_name VARCHAR(50) NOT NULL,
+last_name VARCHAR(50) NOT NULL,
+gender VARCHAR(7) NOT NULL,
+email VARCHAR(100),
+date_of_birth DATE NOT NULL,
+country_of_birth VARCHAR(50) NOT NULL,
+car_uid UUID REFERENCES car(car_uid),
+UNIQUE(car_uid),
+UNIQUE(email)
+);
+\d person
+\d car
+insert into person (person_uid, first_name, last_name, gender, email, date_of_birth, country_of_birth)
+values (uuid_generate_v4(), 'Fernanda', 'Beardon', 'Female', 'fernandab@is.gd', '1953-10-28', 'Comoros');
+insert into person (person_uid, first_name, last_name, gender, email, date_of_birth, country_of_birth) 
+values (uuid_generate_v4(), 'Omar', 'Colmore', 'Male', null, '1921-04-03', 'Finland');
+\d person
+SELECT * FROM person;
+insert into person (person_uid, first_name, last_name, gender, email, date_of_birth, country_of_birth) 
+values (uuid_generate_v4(), 'Adriana', 'Matuschek', 'Female', 'amatuschek2@feedburner.com', '1965-02-28', 'Cameroon');
+insert into car (car_uid, make, model, price) values (uuid_generate_v4(), 'Land Rover', 'Sterling', '87665.38');
+insert into car (car_uid, make, model, price) values (uuid_generate_v4(), 'GMC', 'Acadia', '17662.69');
+SELECT * FROM car;
+\x
+SELECT * FROM person;
+SELECT * FROM car;
+UPDATE person SET car_uid = '2c549efe-84a3-4984-a65c-67fd798ad83f' WHERE person_uid = "1335d7bb-9b25-4fc0-9428-a6a778e3d042";
+UPDATE person SET car_uid = '2c549efe-84a3-4984-a65c-67fd798ad83f' WHERE person_uid = "1335d7bb-9b25-4fc0-9428-a6a778e3d042";
+UPDATE person SET car_uid = '2c549efe-84a3-4984-a65c-67fd798ad83f' WHERE person_uid = "1335d7bb-9b25-4fc0-9428-a6a778e3d042";
+\d person
+SELECT * FROM person;
+SELECT * FROM car;
+UPDATE person SET car_uid = '2c549efe-84a3-4984-a65c-67fd798ad83f' WHERE person_uid = "1335d7bb-9b25-4fc0-9428-a6a778e3d042";
+UPDATE person SET car_uid = '2c549efe-84a3-4984-a65c-67fd798ad83f' WHERE person_uid = 'e8a6852a-1ed8-4fb9-83c7-b104d94c960c';
+UPDATE person SET car_uid = '5aefb2f6-aaeb-4343-9267-f14f0be6e170' WHERE person_uid = '1335d7bb-9b25-4fc0-9428-a6a778e3d042';
+SELECT * FROM person LEFT JOIN car ON car.car_uid = person.car_uid;
+SELECT * FROM person LEFT JOIN car USING(car_uid);
+SELECT * FROM person LEFT JOIN car USING(car_uid);
+\table
+\?
+\d
+\f
+\?
+\t
+\d t
+\d db
+\d
+\h
+\?
+\dl
+\?
+\?
+\l
+\d onedseven
+\u onedseven
+\?
+\d test
+\
+\d test
+\dl test
+\dt test
+\t test
+\test test
+\tes
+\test
+\n test
+\?
+\c test
+\c onedseven_development
+\d
+\dl
+\dt
+\d
+\t organizer_poll
+\d organizer_poll
+\dl organizer_poll
+\?
+\dt 
+\organizer_poll
+\t organizer_poll
+\dl organizer_poll
+\dt organizer_poll
+\s organizer_poll

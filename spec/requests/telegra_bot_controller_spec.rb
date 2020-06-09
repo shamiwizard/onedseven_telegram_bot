@@ -53,21 +53,12 @@ RSpec.describe TelegramBotController, telegram_bot: :rails do
           expect { subject }.to_not change { DMaster.count }
         end
       end
-
-      # context 'when person role is orginiaer' do
-      #   before { person.update_attributes(person_type: :organizer) }
-
-      #   it 'return message' do
-      #     expect { subject }.to make_telegram_request(bot, :sendMessage)
-      #       .with(hash_including(text: "You can't update your role because your role is already Organizer"))
-      #   end
-      # end
     end
 
     context 'when peson hasn\'t role' do
       it 'retrun message' do
         expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Congratelate now your role is Dungeon master"))
+          .with(hash_including(text: "Congratelate now your role is Dungeon master"))
       end
 
       it "create new record" do
@@ -96,19 +87,12 @@ RSpec.describe TelegramBotController, telegram_bot: :rails do
           expect { subject }.to_not change{ Organizer.count }
         end
       end
-
-      # context 'when person role is master' do
-      #   it 'return message' do
-      #     expect { subject }.to make_telegram_request(bot, :sendMessage)
-      #       .with(hash_including(text: "Sorry but you already have role - <b>#{person.person_type}</b>"))
-      #   end
-      # end
     end
 
     context 'when peson hasn\'t role' do
       it 'retrun message' do
         expect { subject }.to make_telegram_request(bot, :sendMessage)
-            .with(hash_including(text: "Congratelate now your role is Organizer"))
+          .with(hash_including(text: "Congratelate now your role is Organizer"))
       end
 
       it 'create new record' do
