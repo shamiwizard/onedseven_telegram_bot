@@ -40,18 +40,27 @@ class TelegramBotController < Telegram::Bot::UpdatesController
   end
 
   def start_poll!(data=nil, *)
-    unless person.organizer?
+    unless person.organizer
       return respond_with :message, text: "Sorry but you don't have permission to run poll"
     end
 
-    if Poll.create(organizer_id: person.id, started_at: Time.now)
+    if Poll.where(organizer_id: person.id, status: "started")
+      retrun respond_with :message, text: "You don't finithed prevese poll close them after creating new"
+    end
+
+    poll = Poll.new(organizer_id: person.id, started_at: Time.now)
+    if poll.save
       send_message_to_dmasters
     else
       respond_with :message, text: "Sorry something goes wrong, try again later"
     end
   end
 
-  def yes!
+  def my_polls!(data = nil, *)
+
+  end
+
+  def yes!(date = nil, *)
     respond_with :message, text: 'Your asnwer is yes'
   end
 
@@ -88,8 +97,8 @@ class TelegramBotController < Telegram::Bot::UpdatesController
   end
 
   def send_message_to_dmasters
-    DMaster.all.each do |p|
-      bot.send_message(chat_id: p.telegram_code, text: "Poll started could you vote)\n Write /yes or /no if you can")
+    DMaster.all.each do |dm|
+      bot.send_message(chat_id: dm.person.telegram_code, text: "Poll started could you vote)\n Write /yes or /no if you can")
     end
   end
 end
