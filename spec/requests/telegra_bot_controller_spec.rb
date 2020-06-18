@@ -3,8 +3,8 @@ require 'telegram/bot/rspec/integration/poller'
 
 RSpec.describe TelegramBotController, telegram_bot: :poller do
   let(:bot) { Telegram::Bot::ClientStub.new('token') }
+
   after { Telegram.bots.each_value(&:reset) }
-  let(:person) { create(:person) }
 
   describe "#start!" do
     let(:from) { attributes_for(:person_params)  }
@@ -18,11 +18,13 @@ RSpec.describe TelegramBotController, telegram_bot: :poller do
       end
 
       it "save new person" do
-        expect{ subject }.to change { Person.count }
+        expect { subject }.to change { Person.count }
       end
     end
 
     context "when person is exist" do
+      let(:person) { create(:person) }
+
       before { from[:id] = person.telegram_code }
 
       it "return message" do
@@ -31,7 +33,7 @@ RSpec.describe TelegramBotController, telegram_bot: :poller do
       end
 
       it "doesn't save exist person" do
-        expect{ subject }.to_not change { Person.count }
+        expect { subject }.to_not change { Person.count }
       end
     end
 
@@ -39,7 +41,7 @@ RSpec.describe TelegramBotController, telegram_bot: :poller do
       before { from[:id]= '' }
 
       it "doesn't save person" do
-        expect{ subject }.to_not change{Person.count}
+        expect { subject }.to_not change {Person.count}
       end
     end
   end

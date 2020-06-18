@@ -1,5 +1,5 @@
 class TelegramBots::OrganizerTelegramBotController < TelegramBotController
-  before_action :create_organizer, if: :organizer
+  before_action :create_organizer, unless: -> { organizer }
 
   def start_poll!(data=nil, *)
     unless person.organizer
@@ -31,7 +31,7 @@ class TelegramBots::OrganizerTelegramBotController < TelegramBotController
   end
 
   def create_organizer
-    organizer = Orginizer.new(person_id: perosn.id)
+    organizer = Organizer.new(person_id: person.id)
 
     if organizer.save
       "Organizer created"
