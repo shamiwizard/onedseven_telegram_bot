@@ -3,7 +3,7 @@ class TelegramBotController < Telegram::Bot::UpdatesController
 
   before_action :save_person, unless: -> { person }
 
-  def start!(data = nil, *)
+  def start!(*)
     respond_with :message, text: start_message
   end
 
@@ -29,7 +29,12 @@ class TelegramBotController < Telegram::Bot::UpdatesController
   end
 
   def person_params
-    { telegram_code: from['id'], first_name: from['first_name'], last_name: from['last_name'],
-      username: from['username'], language_code: from['language_code'] }
+    {
+      telegram_code: from['id'],
+      first_name: from['first_name'],
+      last_name: from['last_name'],
+      username: from['username'],
+      language_code: from['language_code']
+    }
   end
 end
