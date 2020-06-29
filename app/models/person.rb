@@ -1,6 +1,6 @@
 class Person < ApplicationRecord
-  has_one :d_master, dependent: destroy
-  has_one :organizer, dependent: destroy
+  has_one :d_master, dependent: :destroy
+  has_one :organizer, dependent: :destroy
 
   validates :telegram_code, presence: true
 

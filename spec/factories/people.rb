@@ -11,7 +11,7 @@ FactoryBot.define do
     id { Faker::Number.number(digits: 10) }
     first_name { Faker::Name.first_name }
     last_name { Faker::Name.last_name }
-    username { Faker::Internet.username  }
+    username { Faker::Internet.username }
     language_code { 'en' }
   end
 end

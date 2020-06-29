@@ -6,13 +6,23 @@ class TelegramBots::OrganizerTelegramBotController < TelegramBotController
       return respond_with :message, text: "Sorry but you don't have permission to run poll"
     end
 
-    poll = Poll.new(organizer_id: person.id, started_at: Time.current)
+    poll = Poll.new(organizer_id: organizer.id, started_at: Time.current)
 
     if poll.save
       send_message_to_dmasters
     else
       respond_with :message, text: 'Sorry something goes wrong, try again later'
     end
+  end
+
+  def close_poll!(*)
+    poll = Poll.find_by(organizer_id: organizer.id, status: 'started')
+
+    return respond_with :message, text: 'All polls are closed' unless poll
+
+    poll.update(status: 'ended', ended_at: Time.current)
+
+    respond_with :message, text: "Poll №#{poll.id} was close"
   end
 
   private
